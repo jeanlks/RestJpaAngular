@@ -43,8 +43,8 @@
         controller: 'MainController',
         controllerAs: 'main'
       })
-      .when('/contact', {
-        templateUrl: 'views/contact.html',
+      .when('/lista', {
+        templateUrl: 'views/lista.html',
         controller: 'MainController',
         controllerAs: 'main'
       })

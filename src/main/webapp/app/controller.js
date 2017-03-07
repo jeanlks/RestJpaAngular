@@ -31,6 +31,14 @@
     //   .then(function(ovocie) {
     //     self.ovocie = ovocie.data;
     //   });
+      QueryService.listarPessoas().then(function(retorno){
+        self.listaPessoas = retorno;                                
+      }).catch(function(retornoErro){
+          
+      }).finally(function(){
+          
+      });
+  
   }
 
 

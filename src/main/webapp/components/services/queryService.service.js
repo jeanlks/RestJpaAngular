@@ -48,11 +48,7 @@
   function QueryService($http, $q, CONSTANTS) {
 
 
-    var service = {
-      query: query
-    };
 
-    return service;
 
 
     //////////////// definition
@@ -78,8 +74,28 @@
 
       return deferred.promise;
     }
+      
+      
+   function listarPessoas(){
+          var deferred = $q.defer();
+          $http.get('//localhost:8080/WebServiceRest/rest/service/todasPessoas',{
+              
+          }).success(function(data){
+            deferred.resolve(data);            
+        }).error(function(err,status){
+              deferred.reject({data:err,status:status});
+          });
+          return deferred.promise;
+      }
+      
+      
 
+    return {
+      query,
+      listarPessoas
+    };
   }
 
+    
 
 })();

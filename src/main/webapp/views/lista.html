@@ -1,0 +1,25 @@
+<h2>Contact</h2>
+
+<div class="container cf">
+    <div>
+        <p>Lista Contatos<br>
+        <table>
+            <thead>
+                <tr>
+                    <th width="30%">nome</th>
+                    <th width="20%">email</th>
+                    <th width="20%">telefone</th>
+                    <th width="30%">empresa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr  ng-repeat="pessoa in main.listaPessoas">
+                    <td width="30%">{{pessoa.nome}} </td>
+                    <td width="20%">{{pessoa.email}}</td>
+                    <td width="20%">{{pessoa.telefone}}</td>
+                    <td width="30%">{{pessoa.empresa}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
