@@ -48,8 +48,8 @@
         controller: 'MainController',
         controllerAs: 'main'
       })
-      .when('/setup', {
-        templateUrl: 'views/setup.html',
+      .when('/importar', {
+        templateUrl: 'views/import.html',
         controller: 'MainController',
         controllerAs: 'main'
       })
