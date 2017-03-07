@@ -1,1 +1,0 @@
-!function(){function a(a,o){return{loadData:loadData}}angular.module("boilerplate").factory("getDataFromAPI",a),a.$inject=["$http","LocalStorage"]}(),function(){function a(a,o){}angular.module("boilerplate").controller("MainController",a),a.$inject=["LocalStorage","QueryService"]}();

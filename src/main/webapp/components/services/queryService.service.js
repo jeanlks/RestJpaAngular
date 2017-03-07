@@ -88,11 +88,24 @@
           return deferred.promise;
       }
       
-      
+    function salvarPessoas(pessoa){
+          var deferred = $q.defer();
+          $http({ 
+              url:' //localhost:8080/WebServiceRest/rest/service/cadastrar',
+              method :'POST',
+              data: pessoa
+        }).success(function(data){
+            deferred.resolve(data);            
+        }).error(function(err,status){
+              deferred.reject({data:err,status:status});
+          });
+          return deferred.promise;
+      }   
 
     return {
       query,
-      listarPessoas
+      listarPessoas,
+      salvarPessoas
     };
   }
 

@@ -18,7 +18,7 @@
 
     // 'controller as' syntax
     var self = this;
-
+    
 
     ////////////  function definitions
 
@@ -39,6 +39,15 @@
           
       });
   
+   self.salvar = function(pessoaForm){
+       QueryService.salvarPessoas(pessoaForm).then(function(retorno){                               
+      }).catch(function(retornoErro){
+          
+      }).finally(function(){
+          
+      });
+  
+   }
   }
 
 

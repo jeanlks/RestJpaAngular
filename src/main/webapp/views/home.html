@@ -5,26 +5,27 @@
     <h3>Inserir Contato</h3>
     <div class="form-group">
       <label for="usr">Nome:</label>
-      <input type="text" class="form-control" id="nome">
+      <input ng-model="pessoaForm.nome" type="text" class="form-control" id="nome">
+
     </div>
 
     <div class="form-group">
       <label for="usr">Email:</label>
-      <input type="text" class="form-control" id="email">
+      <input  ng-model="pessoaForm.email" type="text" class="form-control" id="email">
     </div>
 
     <div class="form-group">
       <label for="usr">Telefone:</label>
-      <input type="text" class="form-control" id="telefone">
+      <input  ng-model="pessoaForm.telefone" type="text" class="form-control" id="telefone">
     </div>
 
     <div class="form-group">
       <label for="usr">Empresa:</label>
-      <input type="text" class="form-control" id="empresa">
+      <input ng-model="pessoaForm.empresa" type="text" class="form-control" id="empresa">
     </div>
     
      <div class="col-md-12">
-            <button type="button" class="btn btn-primary active">Salvar Pessoa</button>
+            <button ng-click="main.salvar(pessoaForm)" type="button" class="btn btn-primary active">Salvar Pessoa</button>
         </div>
 </div>
 <div class="text-center">

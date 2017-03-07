@@ -19,9 +19,9 @@ import com.teste.repository.PessoaRepository;
 
 
 /**
- * Essa classe vai expor os nosso métodos para serem acessasdos via http
+ * Classe que expoe recursos
  * 
- * @Path - Caminho para a chamada da classe que vai representar o nosso serviço
+ * @Path - Caminho para a chamada do recurso
  * */
 @Path("/service")
 public class ServiceController {
@@ -29,10 +29,10 @@ public class ServiceController {
 	private final  PessoaRepository repository = new PessoaRepository();
 
 	/**
-	 * @Consumes - determina o formato dos dados que vamos postar
-	 * @Produces - determina o formato dos dados que vamos retornar
+	 * @Consumes - determina formato dos dados consumidos.
+	 * @Produces - determina formato dos dados retornados.
 	 * 
-	 * Esse método cadastra uma nova pessoa
+	 * Cadastro de Pessoa
 	 * */
 	@POST	
 	@Consumes("application/json; charset=UTF-8")
@@ -61,7 +61,7 @@ public class ServiceController {
 	}
 	
 	/**
-	 * Essse método altera uma pessoa já cadastrada
+	 * Altera Pessoa cadastrada.
 	 * **/
 	@PUT
 	@Produces("application/json; charset=UTF-8")
@@ -91,7 +91,7 @@ public class ServiceController {
 
 	}
 	/**
-	 * Esse método lista todas pessoas cadastradas na base
+	 * ListaTodasPessoas
 	 * */
 	@GET
 	@Produces("application/json; charset=UTF-8")
@@ -140,7 +140,7 @@ public class ServiceController {
 	@DELETE
 	@Produces("application/json; charset=UTF-8")
 	@Path("/excluir/{codigo}")	
-	public String Excluir(@PathParam("pessoaI  d") Integer pessoaId){
+	public String Excluir(@PathParam("pessoaId") Integer pessoaId){
 		
 		try {
 			
