@@ -11,21 +11,29 @@ import com.teste.entity.AmizadeEntity;
 import com.teste.entity.PessoaEntity;
 
 
-
+/**
+ * Classe de funcoes de repositorio para Pessoa.
+ * @author Jean
+ *
+ */
 public class PessoaRepository {
 
 	private final EntityManagerFactory entityManagerFactory;
 	
 	private final EntityManager entityManager;
 	
+	/**
+	 * Construtor de uso exclusivo do EntityManager.
+	 */
 	public PessoaRepository(){	
 		this.entityManagerFactory = Persistence.createEntityManagerFactory("persistence_unit");
 		this.entityManager = this.entityManagerFactory.createEntityManager();
 	}
 	
 	/**
-	 * Salva Entidade Pessoa
-	 * */
+	 * 
+	 * @param pessoaEntity entidade de pessoa para salvar.
+	 */
 	public void salvar(PessoaEntity pessoaEntity){
 		
 		this.entityManager.getTransaction().begin();
@@ -34,8 +42,9 @@ public class PessoaRepository {
 	}
 	
 	/**
-	 * Altera Pessoa
-	 * */
+	 * 
+	 * @param pessoaEntity entidade de pessoa para alterar.
+	 */
 	public void alterar(PessoaEntity pessoaEntity){
 		
 		this.entityManager.getTransaction().begin();
@@ -44,8 +53,9 @@ public class PessoaRepository {
 	}
 	
 	/**
-	 * Retorna Todas Pessoas Cadastradas 
-	 * */
+	 * 
+	 * @return retorna lista de pessoas.
+	 */
 	@SuppressWarnings("unchecked")
 	public List<PessoaEntity> listarPessoas(){
 		
@@ -53,16 +63,19 @@ public class PessoaRepository {
 	}
 	
 	/**
-	 * Retorna pessoa pelo codigo
-	 * */
+	 * 
+	 * @param pessoaId id da pessoa.
+	 * @return pessoa de acordo com o ID fornecido.
+	 */
 	public PessoaEntity getPessoa(final Integer pessoaId){
 		
 		return this.entityManager.find(PessoaEntity.class, pessoaId);
 	}
 	
 	/**
-	 * Exclui registro.
-	**/
+	 * 
+	 * @param pessoaId id da Pessoa.
+	 */
 	public void excluir(final Integer pessoaId){		
 		PessoaEntity pessoa = this.getPessoa(pessoaId);	
 		this.entityManager.getTransaction().begin();
@@ -70,25 +83,34 @@ public class PessoaRepository {
 		this.entityManager.getTransaction().commit();
 		
 	}
+	/**
+	 * 
+	 * @param email email da pessoa.
+	 * @return retorna a pessoa com aquele email.
+	 */
 	@SuppressWarnings("unchecked")
     public PessoaEntity getPessoaPorEmail(final String email) {
 	    List<PessoaEntity> listaPessoas =  this.entityManager.createQuery("SELECT p FROM PessoaEntity p  WHERE email LIKE :email")
                 .setParameter("email", email)
                 .getResultList();
-        if(listaPessoas.size()>0){
+        if(listaPessoas.isEmpty()){
             return listaPessoas.get(0);
         }
         else{
             return null;
         }
     }
+	/**
+	 * 
+	 * @param id id da pessoa
+	 * @return retorna a lista dos amigos dessa pessoa.
+	 */
 	 @SuppressWarnings("unchecked")
      public List<AmizadeEntity> listarAmigosPorId(int id){
-           List<AmizadeEntity> listaAmigos =  this.entityManager
+           return  this.entityManager
                   .createQuery("SELECT a FROM AmizadeEntity a  WHERE ID1 LIKE :id" )
                  .setParameter("id", id)  
-                 .getResultList();
-           return listaAmigos;
+                 .getResultList();       
      }
 	 
 }

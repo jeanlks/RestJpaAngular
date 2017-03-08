@@ -7,6 +7,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Classe de entidade para tabela Pessoa.
+ * @author Jean
+ *
+ */
 @Entity
 @Table(name = "pessoa")
 public class PessoaEntity {

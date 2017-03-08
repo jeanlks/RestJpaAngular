@@ -16,6 +16,12 @@ import static org.mockito.MockitoAnnotations.initMocks;
 
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * Classe de testes para recursos.
+ * @author Jean
+ *
+ */
 public class ServiceControllerTest {
     @Mock
     PessoaRepository repositorioPessoa;
@@ -83,13 +89,13 @@ public class ServiceControllerTest {
         servico.excluir(1);
     }
     private List<PessoaEntity> getListaPessoaEntityMock() {
-        List<PessoaEntity> listaPessoas = new ArrayList<PessoaEntity>(); 
+        List<PessoaEntity> listaPessoas = new ArrayList<>(); 
         listaPessoas.add(getPessoaEntityMock());
         return listaPessoas;
     }
 
     private List<AmizadeEntity> getListAmizadeMock() {
-        List<AmizadeEntity> listaAmizade = new ArrayList<AmizadeEntity>(); 
+        List<AmizadeEntity> listaAmizade = new ArrayList<>(); 
         listaAmizade.add(getAmizadeMock());
         return listaAmizade;
     }

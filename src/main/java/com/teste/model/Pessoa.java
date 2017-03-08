@@ -2,7 +2,11 @@ package com.teste.model;
 
 
 import javax.xml.bind.annotation.XmlRootElement;
-
+/**
+ * Classe Pessoa model.
+ * @author Jean
+ *
+ */
 @XmlRootElement
 public class Pessoa {
 

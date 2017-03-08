@@ -6,9 +6,17 @@ import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
 import javax.ws.rs.ext.Provider;
 
+/**
+ * Classe filtro para acesso por outros endereços
+ * @author Jean
+ *
+ */
 @Provider
 public class CORSFilter implements ContainerResponseFilter {
 
+    /**
+     * Filtro para uso de rest por outros endereços e portas.
+     */
     @Override
     public void filter(ContainerRequestContext request,
             ContainerResponseContext response) throws IOException {

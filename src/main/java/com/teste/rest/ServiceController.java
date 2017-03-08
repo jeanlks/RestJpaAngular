@@ -14,7 +14,6 @@ import javax.ws.rs.Produces;
 
 import com.teste.entity.AmizadeEntity;
 import com.teste.entity.PessoaEntity;
-import com.teste.model.Amizade;
 import com.teste.model.Pessoa;
 import com.teste.repository.AmizadeRepository;
 import com.teste.repository.PessoaRepository;
@@ -33,7 +32,8 @@ public class ServiceController {
     /**
      * @Consumes - determina formato dos dados consumidos.
      * @Produces - determina formato dos dados retornados.
-     * 
+     * @param pessoa pessoa para cadastro
+     * @return mensagem de erro ou sucesso.
      *           Cadastro de Pessoa
      */
     @POST
@@ -65,6 +65,11 @@ public class ServiceController {
 
     }
 
+    /**
+     * 
+     * @param email email 
+     * @return false ou true se o email ja foi cadastrado.
+     */
     protected boolean verificaEmailCadastrado(String email) {
         if (getPessoaPorEmail(email) != null) {
             return true;
@@ -72,16 +77,25 @@ public class ServiceController {
         return false;
     }
 
+    /**
+     * 
+     * @param pessoa objeto pessoa.
+     * @return false ou true dependendo se a pessoa tem algum campo necessário null.
+     */
     protected boolean validaPessoa(Pessoa pessoa) {
-        if (pessoa.getNome() != null || pessoa.getEmail() != null || pessoa.getTelefone() != null) {
+        if (pessoa.getNome() != null 
+                || pessoa.getEmail() != null 
+                || pessoa.getTelefone() != null) {
             return true;
         }
         return false;
     }
 
     /**
-     * Altera Pessoa cadastrada.
-     **/
+     * 
+     * @param pessoa a pessoa no banco.
+     * @return mensagem de sucesso ou erro.
+     */
     @PUT
     @Produces("application/json; charset=UTF-8")
     @Consumes("application/json; charset=UTF-8")
@@ -104,13 +118,14 @@ public class ServiceController {
         }}
 
     /**
-     * ListaTodasPessoas
+     * 
+     * @return todas pessoas do banco.
      */
     @GET
     @Produces("application/json; charset=UTF-8")
     @Path("/todasPessoas")
     public List<Pessoa> listaPessoas() {
-        List<Pessoa> pessoas = new ArrayList<Pessoa>();
+        List<Pessoa> pessoas = new ArrayList<>();
         List<PessoaEntity> listaEntityPessoas = repositoryPessoa.listarPessoas();
         for (PessoaEntity entity : listaEntityPessoas) {
             pessoas.add(new Pessoa(entity.getPessoaId(), entity.getNome(), entity.getEmail(), entity.getTelefone(),
@@ -119,14 +134,16 @@ public class ServiceController {
         return pessoas;
     }
 
-    /**
-     * Esse método busca uma pessoa cadastrada pelo código
-     */
+   /**
+    * 
+    * @param id codigo da pessoa para busca 
+    * @return retorna a pessoa pelo id.
+    */
     @GET
     @Produces("application/json; charset=UTF-8")
-    @Path("/getPessoa/{codigo}")
-    public Pessoa getPessoa(@PathParam("codigo") Integer codigo) {
-        PessoaEntity entity = repositoryPessoa.getPessoa(codigo);
+    @Path("/getPessoa/{id}")
+    public Pessoa getPessoa(@PathParam("id") Integer id) {
+        PessoaEntity entity = repositoryPessoa.getPessoa(id);
         if (entity != null)
             return new Pessoa(entity.getPessoaId(), entity.getNome(), entity.getEmail(), entity.getTelefone(),
                     entity.getEmpresa());
@@ -134,7 +151,9 @@ public class ServiceController {
     }
 
     /**
-     * Esse método busca uma pessoa cadastrada pelo nome
+     * 
+     * @param email email da pessoa a buscar.
+     * @return pessoa. 
      */
     @GET
     @Produces("application/json; charset=UTF-8")
@@ -151,13 +170,15 @@ public class ServiceController {
     }
 
     /**
-     * Esse método busca uma pessoa cadastrada pelo nome
+     * 
+     * @param id id da pessoa da qual quer buscar a lista.
+     * @return lista de amigos.
      */
     @GET
     @Produces("application/json; charset=UTF-8")
     @Path("/getAmigosPorIdPessoa/{id}")
     public List<Pessoa> listarAmigosPorId(@PathParam("id") int id) {
-        List<Pessoa> amigos = new ArrayList<Pessoa>();
+        List<Pessoa> amigos = new ArrayList<>();
         List<AmizadeEntity> listaEntityAmizadeIds = repositoryPessoa.listarAmigosPorId(id);
         for (AmizadeEntity entity : listaEntityAmizadeIds) {
             PessoaEntity entidadePessoa = repositoryPessoa.getPessoa(entity.getId2());
@@ -204,7 +225,9 @@ public class ServiceController {
     // }
 
     /**
-     * Excluindo uma pessoa pelo código
+     * 
+     * @param pessoaId id da pessoa para deletar.
+     * @return retorna o erro ou mensagem de sucesso.
      */
     @DELETE
     @Produces("application/json; charset=UTF-8")
@@ -218,7 +241,10 @@ public class ServiceController {
         } }
 
     /**
-     * Excluindo uma amizade pelo código
+     * 
+     * @param id1 id1 da pessoa a ser excluida
+     * @param id2 id2 da pessoa a ser excluida
+     * @return retorna mensagem de erro ou sucesso.
      */
     @DELETE
     @Produces("application/json; charset=UTF-8")
