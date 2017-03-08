@@ -1,4 +1,4 @@
-package com.teste.controller;
+package com.teste.rest;
 
 import java.io.IOException;
 import javax.ws.rs.container.ContainerRequestContext;

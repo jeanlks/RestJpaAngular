@@ -1,4 +1,4 @@
-package com.teste.controller;
+package com.teste.rest;
 
 
 import java.util.ArrayList;
@@ -178,6 +178,39 @@ public class ServiceController {
         
         return amigos;
     }
+    
+
+//    /**
+//     * @Consumes - determina formato dos dados consumidos.
+//     * @Produces - determina formato dos dados retornados.
+//     * 
+//     * Cadastro de Pessoa
+//     * */
+//    @POST   
+//    @Consumes("application/json; charset=UTF-8")
+//    @Produces("application/json; charset=UTF-8")
+//    @Path("/insereAmigo")
+//    public String InsereAmigo(int id,Pessoa pessoa){
+//        
+//        PessoaEntity entity = new PessoaEntity();
+//                
+//        try {
+//
+//            entity.setNome(pessoa.getNome());
+//            entity.setEmail(pessoa.getEmail());
+//            entity.setEmpresa(pessoa.getEmpresa());
+//            entity.setTelefone(pessoa.getTelefone());
+//            
+//            repository.insereAmigo(id,entity);
+//            
+//            return "Registro cadastrado com sucesso!";
+//            
+//        } catch (Exception e) {
+//            
+//            return "Erro ao cadastrar um registro " + e.getMessage();
+//        }
+//    
+//    }
 	
 	/**
 	 * Excluindo uma pessoa pelo código
@@ -199,5 +232,26 @@ public class ServiceController {
 		}
 		
 	}
+	
+	   /**
+     * Excluindo uma amizade pelo código
+     * */
+    @DELETE
+    @Produces("application/json; charset=UTF-8")
+    @Path("/excluirAmizade/{id1}/{id2}")  
+    public String Excluir(@PathParam("id1") int id1, @PathParam("id2") int id2){
+        
+        try {
+            
+            repository.removerAmigo(id1, id2);
+            
+            return "Registro excluido com sucesso!";
+            
+        } catch (Exception e) {
+        
+            return "Erro ao excluir o registro! " + e.getMessage();
+        }
+        
+    }
 	
 }

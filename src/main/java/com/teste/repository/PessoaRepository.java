@@ -58,7 +58,7 @@ public class PessoaRepository {
 	/**
 	 * CONSULTA UMA PESSOA CADASTRA PELO CÓDIGO
 	 * */
-	public PessoaEntity getPessoa(Integer pessoaId){
+	public PessoaEntity getPessoa(final Integer pessoaId){
 		
 		return this.entityManager.find(PessoaEntity.class, pessoaId);
 	}
@@ -66,7 +66,7 @@ public class PessoaRepository {
 	/**
 	 * EXCLUINDO UM REGISTRO PELO CÓDIGO
 	**/
-	public void Excluir(Integer pessoaId){
+	public void Excluir(final Integer pessoaId){
 		
 		PessoaEntity pessoa = this.getPessoa(pessoaId);
 		
@@ -76,7 +76,7 @@ public class PessoaRepository {
 		
 	}
 	@SuppressWarnings("unchecked")
-    public PessoaEntity getPessoaPorEmail(String email) {
+    public PessoaEntity getPessoaPorEmail(final String email) {
 	    List<PessoaEntity> listaPessoas =  this.entityManager.createQuery("SELECT p FROM PessoaEntity p  WHERE NOME LIKE :email")
                 .setParameter("email", email)
                 .getResultList();
@@ -90,9 +90,34 @@ public class PessoaRepository {
 	 @SuppressWarnings("unchecked")
      public List<AmizadeEntity> listarAmigosPorId(int id){
            List<AmizadeEntity> listaAmigos =  this.entityManager
-                  .createQuery("SELECT p FROM AmizadeEntity p  WHERE ID1 LIKE :id" )
+                  .createQuery("SELECT p FROM AmizadeEntity  WHERE ID1 LIKE :id" )
                  .setParameter("id", id)  
                  .getResultList();
            return listaAmigos;
      }
+	 
+	 @SuppressWarnings("unchecked")
+	 public void removerAmigo(final int id1,final int id2){
+	     this.entityManager
+	     .createQuery("DELETE FROM AmizadeEntity WHERE ID1 LIKE :ID1 AND  ID2 LIKE :ID2 ")
+	     .setParameter("ID1", id1)
+	     .setParameter("ID2", id2);
+	     
+	     this.entityManager.flush();
+	     
+	 }
+	 public void insereAmigo(final int idAmigo1,PessoaEntity pessoaEntity){
+	        //Adiciona na tabela Pessoa
+	        this.entityManager.getTransaction().begin();
+	        this.entityManager.persist(pessoaEntity);
+	        this.entityManager.getTransaction().commit();
+	        //Cria objeto de amizade e posteriormente salva com a id gerada anteriormente
+	        AmizadeEntity amizade = new AmizadeEntity();
+	        amizade.setId1(idAmigo1);
+	        amizade.setId2(pessoaEntity.getPessoaId());
+	        
+	        this.entityManager.getTransaction().begin();
+            this.entityManager.persist(amizade);
+            this.entityManager.getTransaction().commit();       
+	 }
 }

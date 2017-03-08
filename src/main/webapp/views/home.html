@@ -1,25 +1,22 @@
-<h2 class="text-center">Administração/Pessoa</h2>
-
-
-<div class="form-control" align="center">
-    <h3>Inserir Contato</h3>
-    <div class="form-group">
+    <div class="form-group" align="center">
+          <h3>Inserir Contato</h3>
+    <div class="col-md-6">
       <label for="usr">Nome:</label>
       <input ng-model="pessoaForm.nome" type="text" class="form-control" id="nome">
 
     </div>
 
-    <div class="form-group">
+    <div class="col-md-6">
       <label for="usr">Email:</label>
       <input  ng-model="pessoaForm.email" type="text" class="form-control" id="email">
     </div>
 
-    <div class="form-group">
+    <div class="col-md-6">
       <label for="usr">Telefone:</label>
       <input  ng-model="pessoaForm.telefone" type="text" class="form-control" id="telefone">
     </div>
 
-    <div class="form-group">
+    <div class="col-md-6">
       <label for="usr">Empresa:</label>
       <input ng-model="pessoaForm.empresa" type="text" class="form-control" id="empresa">
     </div>
@@ -27,8 +24,5 @@
      <div class="col-md-12">
             <button ng-click="main.salvar(pessoaForm)" type="button" class="btn btn-primary active">Salvar Pessoa</button>
         </div>
-</div>
-<div class="text-center">
-    <small>Crud Application <a target="_blank" href="http://unsplash.com"> by Jean Lucas</a></small>
 </div>
 
