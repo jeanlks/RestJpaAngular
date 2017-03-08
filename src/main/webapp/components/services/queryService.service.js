@@ -117,7 +117,7 @@
               method :'POST',
               data: pessoa
         }).success(function(data){
-            deferred.resolve(data);            
+            deferred.resolve(data); 
         }).error(function(err,status){
               deferred.reject({data:err,status:status});
           });

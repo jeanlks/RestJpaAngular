@@ -70,16 +70,16 @@
     }
     
    self.limpaCampos = function(){
-       self.pessoaForm = null;
+       self.pessoaForm = {};
    } 
    self.validaForm = function(pessoaForm){
-       if(!pessoaForm)
+       if(!self.pessoaForm)
            return false;
-       if(!pessoaForm.nome)
+       if(!self.pessoaForm.nome)
            return false;
-       if(!pessoaForm.email)
+       if(!self.pessoaForm.email)
            return false;
-       if(!pessoaForm.telefone)
+       if(!self.pessoaForm.telefone)
            return false;
        
        return true;
@@ -93,14 +93,19 @@
       }).finally(function(){
           
       });
-    alert("Registro salvo com sucesso");
-    self.limpaCampos();
+       
+   
+   // self.limpaCampos();
    }else{
        alert("Campos obrigatório não informados");
    }}
    
    self.removerAmigo = function(amigo){
       alert(amigo.pessoaId);
+   }
+   
+   self.inserirAmigo = function(pessoaForm,amigoForm){
+      alert("pessoaFormId: "+pessoaForm.pessoaId );   
    }
   }
     

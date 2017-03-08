@@ -17,6 +17,7 @@ import com.teste.entity.AmizadeEntity;
 import com.teste.entity.PessoaEntity;
 import com.teste.model.Amizade;
 import com.teste.model.Pessoa;
+import com.teste.repository.AmizadeRepository;
 import com.teste.repository.PessoaRepository;
 
 
@@ -28,8 +29,8 @@ import com.teste.repository.PessoaRepository;
 @Path("/service")
 public class ServiceController {
 		
-	private final  PessoaRepository repository = new PessoaRepository();
-
+     PessoaRepository repositoryPessoa = new PessoaRepository();
+     AmizadeRepository repositoryAmizade = new AmizadeRepository();
 	/**
 	 * @Consumes - determina formato dos dados consumidos.
 	 * @Produces - determina formato dos dados retornados.
@@ -40,7 +41,7 @@ public class ServiceController {
 	@Consumes("application/json; charset=UTF-8")
 	@Produces("application/json; charset=UTF-8")
 	@Path("/cadastrar")
-	public String Cadastrar(Pessoa pessoa){
+	public String cadastrar(Pessoa pessoa){
 		
 		PessoaEntity entity = new PessoaEntity();
 			if(validaPessoa(pessoa)){
@@ -50,9 +51,11 @@ public class ServiceController {
 		            entity.setEmail(pessoa.getEmail());
 		            entity.setEmpresa(pessoa.getEmpresa());
 		            entity.setTelefone(pessoa.getTelefone());
-		            
-		            repository.Salvar(entity);
-		            
+		            if(verificaEmailCadastrado(pessoa.getEmail())){
+		                return "Email já existente";
+		            }else{
+		                repositoryPessoa.salvar(entity);
+		            }
 		            return "Registro cadastrado com sucesso!";
 		            
 		        } catch (Exception e) {
@@ -65,11 +68,18 @@ public class ServiceController {
 		
 	
 	}
-	
-	private boolean validaPessoa(Pessoa pessoa) {
+	    
+	protected boolean verificaEmailCadastrado(String email) {
+        if(getPessoaPorEmail(email)!=null){
+            return true;
+        }
+        return false;
+    }
+
+    protected boolean validaPessoa(Pessoa pessoa) {
         if(pessoa.getNome()!=null 
-           && pessoa.getEmail()!=null
-           && pessoa.getTelefone()!=null){
+           || pessoa.getEmail()!=null
+           || pessoa.getTelefone()!=null){
             return true;
         }
         return false;
@@ -82,7 +92,7 @@ public class ServiceController {
 	@Produces("application/json; charset=UTF-8")
 	@Consumes("application/json; charset=UTF-8")	
 	@Path("/alterar")
-	public String Alterar(Pessoa pessoa){
+	public String alterar(Pessoa pessoa){
 		
 		PessoaEntity entity = new PessoaEntity();
 		
@@ -94,7 +104,7 @@ public class ServiceController {
 			entity.setEmpresa(pessoa.getEmpresa());
 			entity.setTelefone(pessoa.getTelefone());
 			
-			repository.Alterar(entity);
+			repositoryPessoa.alterar(entity);
 			
 			return "Registro alterado com sucesso!";
 			
@@ -111,11 +121,11 @@ public class ServiceController {
 	@GET
 	@Produces("application/json; charset=UTF-8")
 	@Path("/todasPessoas")
-	public List<Pessoa> TodasPessoas(){
+	public List<Pessoa> listaPessoas(){
 		
 		List<Pessoa> pessoas =  new ArrayList<Pessoa>();
 		
-		List<PessoaEntity> listaEntityPessoas = repository.TodasPessoas();
+		List<PessoaEntity> listaEntityPessoas = repositoryPessoa.listarPessoas();
 		
 		for (PessoaEntity entity : listaEntityPessoas) {
 			
@@ -135,9 +145,9 @@ public class ServiceController {
 	@GET
 	@Produces("application/json; charset=UTF-8")
 	@Path("/getPessoa/{codigo}")
-	public Pessoa GetPessoa(@PathParam("codigo") Integer codigo){
+	public Pessoa getPessoa(@PathParam("codigo") Integer codigo){
 		
-		PessoaEntity entity = repository.getPessoa(codigo);
+		PessoaEntity entity = repositoryPessoa.getPessoa(codigo);
 		
 		if(entity != null)
 			return new Pessoa(entity.getPessoaId(),
@@ -154,9 +164,9 @@ public class ServiceController {
     @GET
     @Produces("application/json; charset=UTF-8")
     @Path("/getPessoaPorEmail/{email}")
-    public Pessoa GetPessoaPorEmail(@PathParam("email") String email){
+    public Pessoa getPessoaPorEmail(@PathParam("email") String email){
         
-        PessoaEntity entity = repository.getPessoaPorEmail(email);
+        PessoaEntity entity = repositoryPessoa.getPessoaPorEmail(email);
         
         if(entity != null)
             return new Pessoa(entity.getPessoaId(),
@@ -178,10 +188,10 @@ public class ServiceController {
         
         List<Pessoa> amigos =  new ArrayList<Pessoa>();
         
-        List<AmizadeEntity> listaEntityAmizadeIds = repository.listarAmigosPorId(id);
+        List<AmizadeEntity> listaEntityAmizadeIds = repositoryPessoa.listarAmigosPorId(id);
         
         for (AmizadeEntity entity : listaEntityAmizadeIds) {
-            PessoaEntity entidadePessoa = repository.getPessoa(entity.getId2());
+            PessoaEntity entidadePessoa = repositoryPessoa.getPessoa(entity.getId2());
             amigos.add(new Pessoa(entidadePessoa.getPessoaId(),
                        entidadePessoa.getNome(),
                        entidadePessoa.getEmail(),
@@ -231,11 +241,11 @@ public class ServiceController {
 	@DELETE
 	@Produces("application/json; charset=UTF-8")
 	@Path("/excluir/{codigo}")	
-	public String Excluir(@PathParam("pessoaId") Integer pessoaId){
+	public String excluir(@PathParam("pessoaId") Integer pessoaId){
 		
 		try {
 			
-			repository.Excluir(pessoaId);
+			repositoryPessoa.excluir(pessoaId);
 			
 			return "Registro excluido com sucesso!";
 			
@@ -245,18 +255,17 @@ public class ServiceController {
 		}
 		
 	}
-	
 	   /**
      * Excluindo uma amizade pelo código
      * */
     @DELETE
     @Produces("application/json; charset=UTF-8")
     @Path("/excluirAmizade/{id1}/{id2}")  
-    public String Excluir(@PathParam("id1") int id1, @PathParam("id2") int id2){
+    public String excluirAmizade(@PathParam("id1") int id1, @PathParam("id2") int id2){
         
         try {
             
-            repository.removerAmigo(id1, id2);
+            repositoryAmizade.removerAmigo(id1, id2);
             
             return "Registro excluido com sucesso!";
             

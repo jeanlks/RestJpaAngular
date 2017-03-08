@@ -27,9 +27,9 @@ public class PessoaRepository {
 	}
 	
 	/**
-	 * CRIA UM NOVO REGISTRO NO BANCO DE DADOS
+	 * Salva Entidade Pessoa
 	 * */
-	public void Salvar(PessoaEntity pessoaEntity){
+	public void salvar(PessoaEntity pessoaEntity){
 		
 		this.entityManager.getTransaction().begin();
 		this.entityManager.persist(pessoaEntity);
@@ -37,9 +37,9 @@ public class PessoaRepository {
 	}
 	
 	/**
-	 * ALTERA UM REGISTRO CADASTRADO
+	 * Altera Pessoa
 	 * */
-	public void Alterar(PessoaEntity pessoaEntity){
+	public void alterar(PessoaEntity pessoaEntity){
 		
 		this.entityManager.getTransaction().begin();
 		this.entityManager.merge(pessoaEntity);
@@ -47,10 +47,10 @@ public class PessoaRepository {
 	}
 	
 	/**
-	 * RETORNA TODAS AS PESSOAS CADASTRADAS NO BANCO DE DADOS 
+	 * Retorna Todas Pessoas Cadastradas 
 	 * */
 	@SuppressWarnings("unchecked")
-	public List<PessoaEntity> TodasPessoas(){
+	public List<PessoaEntity> listarPessoas(){
 		
 		return this.entityManager.createQuery("SELECT p FROM PessoaEntity p ORDER BY p.nome").getResultList();
 	}
@@ -66,7 +66,7 @@ public class PessoaRepository {
 	/**
 	 * EXCLUINDO UM REGISTRO PELO CÓDIGO
 	**/
-	public void Excluir(final Integer pessoaId){
+	public void excluir(final Integer pessoaId){
 		
 		PessoaEntity pessoa = this.getPessoa(pessoaId);
 		
@@ -96,16 +96,7 @@ public class PessoaRepository {
            return listaAmigos;
      }
 	 
-	 @SuppressWarnings("unchecked")
-	 public void removerAmigo(final int id1,final int id2){
-	     this.entityManager
-	     .createQuery("DELETE FROM AmizadeEntity WHERE ID1 LIKE :ID1 AND  ID2 LIKE :ID2 ")
-	     .setParameter("ID1", id1)
-	     .setParameter("ID2", id2);
-	     
-	     this.entityManager.flush();
-	     
-	 }
+	
 	 public void insereAmigo(final int idAmigo1,PessoaEntity pessoaEntity){
 	        //Adiciona na tabela Pessoa
 	        this.entityManager.getTransaction().begin();
