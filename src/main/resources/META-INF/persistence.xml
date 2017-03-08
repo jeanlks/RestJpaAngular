@@ -8,6 +8,7 @@
    <persistence-unit name="persistence_unit_db_estudo" transaction-type="RESOURCE_LOCAL">
       <provider>org.hibernate.ejb.HibernatePersistence</provider>
        <class>com.teste.entity.PessoaEntity</class> 
+       <class>com.teste.entity.AmizadeEntity</class>
       <properties>
          <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
          <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>

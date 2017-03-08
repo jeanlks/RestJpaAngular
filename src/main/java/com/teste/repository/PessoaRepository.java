@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import com.teste.entity.AmizadeEntity;
 import com.teste.entity.PessoaEntity;
 
 
@@ -19,7 +20,7 @@ public class PessoaRepository {
 	
 	public PessoaRepository(){
 		
-		/*CRIANDO O NOSSO EntityManagerFactory COM AS PORPRIEDADOS DO ARQUIVO persistence.xml */
+		
 		this.entityManagerFactory = Persistence.createEntityManagerFactory("persistence_unit_db_estudo");
 		
 		this.entityManager = this.entityManagerFactory.createEntityManager();
@@ -57,7 +58,7 @@ public class PessoaRepository {
 	/**
 	 * CONSULTA UMA PESSOA CADASTRA PELO CÓDIGO
 	 * */
-	public PessoaEntity GetPessoa(Integer pessoaId){
+	public PessoaEntity getPessoa(Integer pessoaId){
 		
 		return this.entityManager.find(PessoaEntity.class, pessoaId);
 	}
@@ -67,11 +68,31 @@ public class PessoaRepository {
 	**/
 	public void Excluir(Integer pessoaId){
 		
-		PessoaEntity pessoa = this.GetPessoa(pessoaId);
+		PessoaEntity pessoa = this.getPessoa(pessoaId);
 		
 		this.entityManager.getTransaction().begin();
 		this.entityManager.remove(pessoa);
 		this.entityManager.getTransaction().commit();
 		
 	}
+	@SuppressWarnings("unchecked")
+    public PessoaEntity getPessoaPorEmail(String email) {
+	    List<PessoaEntity> listaPessoas =  this.entityManager.createQuery("SELECT p FROM PessoaEntity p  WHERE NOME LIKE :email")
+                .setParameter("email", email)
+                .getResultList();
+        if(listaPessoas.size()>0){
+            return listaPessoas.get(0);
+        }
+        else{
+            return null;
+        }
+    }
+	 @SuppressWarnings("unchecked")
+     public List<AmizadeEntity> listarAmigosPorId(int id){
+           List<AmizadeEntity> listaAmigos =  this.entityManager
+                  .createQuery("SELECT p FROM AmizadeEntity p  WHERE ID1 LIKE :id" )
+                 .setParameter("id", id)  
+                 .getResultList();
+           return listaAmigos;
+     }
 }

@@ -13,7 +13,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
+import com.teste.entity.AmizadeEntity;
 import com.teste.entity.PessoaEntity;
+import com.teste.model.Amizade;
 import com.teste.model.Pessoa;
 import com.teste.repository.PessoaRepository;
 
@@ -122,7 +124,7 @@ public class ServiceController {
 	@Path("/getPessoa/{codigo}")
 	public Pessoa GetPessoa(@PathParam("codigo") Integer codigo){
 		
-		PessoaEntity entity = repository.GetPessoa(codigo);
+		PessoaEntity entity = repository.getPessoa(codigo);
 		
 		if(entity != null)
 			return new Pessoa(entity.getPessoaId(),
@@ -133,6 +135,49 @@ public class ServiceController {
 		
 		return null;
 	}
+	/**
+     * Esse método busca uma pessoa cadastrada pelo nome
+     * */
+    @GET
+    @Produces("application/json; charset=UTF-8")
+    @Path("/getPessoaPorEmail/{email}")
+    public Pessoa GetPessoaPorNome(@PathParam("email") String email){
+        
+        PessoaEntity entity = repository.getPessoaPorEmail(email);
+        
+        if(entity != null)
+            return new Pessoa(entity.getPessoaId(),
+                    entity.getNome(),
+                    entity.getEmail(),
+                    entity.getTelefone(),
+                    entity.getEmpresa());
+        
+        return null;
+    }
+    
+    /**
+     * Esse método busca uma pessoa cadastrada pelo nome
+     * */
+    @GET
+    @Produces("application/json; charset=UTF-8")
+    @Path("/getAmigosPorIdPessoa/{id}")
+    public List<Pessoa> listarAmigosPorId (@PathParam("id") int id){
+        
+        List<Pessoa> amigos =  new ArrayList<Pessoa>();
+        
+        List<AmizadeEntity> listaEntityAmizadeIds = repository.listarAmigosPorId(id);
+        
+        for (AmizadeEntity entity : listaEntityAmizadeIds) {
+            PessoaEntity entidadePessoa = repository.getPessoa(entity.getId2());
+            amigos.add(new Pessoa(entidadePessoa.getPessoaId(),
+                       entidadePessoa.getNome(),
+                       entidadePessoa.getEmail(),
+                       entidadePessoa.getTelefone(),
+                       entidadePessoa.getEmpresa()));
+        }
+        
+        return amigos;
+    }
 	
 	/**
 	 * Excluindo uma pessoa pelo código

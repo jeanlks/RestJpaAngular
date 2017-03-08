@@ -31,14 +31,40 @@
     //   .then(function(ovocie) {
     //     self.ovocie = ovocie.data;
     //   });
-      QueryService.listarPessoas().then(function(retorno){
-        self.listaPessoas = retorno;                                
+//      QueryService.listarPessoas().then(function(retorno){
+//        self.listaPessoas = retorno;                                
+//      }).catch(function(retornoErro){
+//          
+//      }).finally(function(){
+//          
+//      });
+//  
+
+    
+    self.upload = function(documento){
+        var file = documento;
+        console.log(file);
+        
+    }
+    self.getAmigosPorIdPessoa = function(id){
+        QueryService.getListaAmigosPorId(id).then(function(retorno){
+        self.listaAmigos = retorno;                                
       }).catch(function(retornoErro){
           
       }).finally(function(){
           
       });
-  
+    }
+    self.getPessoaPorEmail = function(email){
+        QueryService.getPessoaPorEmail(email).then(function(retorno){
+        self.pessoaForm = retorno;
+        self.getAmigosPorIdPessoa(self.pessoaForm.pessoaId);
+      }).catch(function(retornoErro){
+          
+      }).finally(function(){
+          
+      });
+    }
    self.salvar = function(pessoaForm){
        QueryService.salvarPessoas(pessoaForm).then(function(retorno){                               
       }).catch(function(retornoErro){

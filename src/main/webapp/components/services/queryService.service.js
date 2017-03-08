@@ -86,6 +86,28 @@
               deferred.reject({data:err,status:status});
           });
           return deferred.promise;
+    }
+    function getListaAmigosPorId(id){
+          var deferred = $q.defer();
+          $http.get('//localhost:8080/WebServiceRest/rest/service/getAmigosPorIdPessoa/'+id,{
+              
+          }).success(function(data){
+            deferred.resolve(data);            
+        }).error(function(err,status){
+              deferred.reject({data:err,status:status});
+          });
+          return deferred.promise;
+    }
+    function getPessoaPorEmail(email){
+          var deferred = $q.defer();
+          $http.get('//localhost:8080/WebServiceRest/rest/service/getPessoaPorEmail/'+email,{
+            
+          }).success(function(data){
+            deferred.resolve(data);            
+        }).error(function(err,status){
+              deferred.reject({data:err,status:status});
+          });
+          return deferred.promise;
       }
       
     function salvarPessoas(pessoa){
@@ -105,7 +127,10 @@
     return {
       query,
       listarPessoas,
-      salvarPessoas
+      salvarPessoas,
+      getListaAmigosPorId,
+      getPessoaPorEmail,
+      
     };
   }
 
