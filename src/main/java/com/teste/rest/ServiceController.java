@@ -141,7 +141,7 @@ public class ServiceController {
     @GET
     @Produces("application/json; charset=UTF-8")
     @Path("/getPessoaPorEmail/{email}")
-    public Pessoa GetPessoaPorNome(@PathParam("email") String email){
+    public Pessoa GetPessoaPorEmail(@PathParam("email") String email){
         
         PessoaEntity entity = repository.getPessoaPorEmail(email);
         

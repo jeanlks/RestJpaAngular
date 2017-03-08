@@ -77,7 +77,7 @@ public class PessoaRepository {
 	}
 	@SuppressWarnings("unchecked")
     public PessoaEntity getPessoaPorEmail(final String email) {
-	    List<PessoaEntity> listaPessoas =  this.entityManager.createQuery("SELECT p FROM PessoaEntity p  WHERE NOME LIKE :email")
+	    List<PessoaEntity> listaPessoas =  this.entityManager.createQuery("SELECT p FROM PessoaEntity p  WHERE email LIKE :email")
                 .setParameter("email", email)
                 .getResultList();
         if(listaPessoas.size()>0){
@@ -90,7 +90,7 @@ public class PessoaRepository {
 	 @SuppressWarnings("unchecked")
      public List<AmizadeEntity> listarAmigosPorId(int id){
            List<AmizadeEntity> listaAmigos =  this.entityManager
-                  .createQuery("SELECT p FROM AmizadeEntity  WHERE ID1 LIKE :id" )
+                  .createQuery("SELECT a FROM AmizadeEntity a  WHERE ID1 LIKE :id" )
                  .setParameter("id", id)  
                  .getResultList();
            return listaAmigos;

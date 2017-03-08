@@ -22,7 +22,6 @@
 
     ////////////  function definitions
 
-
     /**
      * Load some data
      * @return {Object} Returned object
@@ -48,24 +47,44 @@
     }
     self.getAmigosPorIdPessoa = function(id){
         QueryService.getListaAmigosPorId(id).then(function(retorno){
-        self.listaAmigos = retorno;                                
+        self.listaAmigos = retorno;                             
       }).catch(function(retornoErro){
-          
+        listaAmigos = {};
       }).finally(function(){
           
       });
     }
     self.getPessoaPorEmail = function(email){
         QueryService.getPessoaPorEmail(email).then(function(retorno){
+        if(retorno!=""){
         self.pessoaForm = retorno;
         self.getAmigosPorIdPessoa(self.pessoaForm.pessoaId);
+        }else{
+             alert("Pessoa não existe");
+        }
       }).catch(function(retornoErro){
-          
+       
       }).finally(function(){
           
       });
     }
+    
+    
+   self.validaForm = function(pessoaForm){
+       if(!pessoaForm)
+           return false;
+       if(!pessoaForm.nome)
+           return false;
+       if(!pessoaForm.email)
+           return false;
+       if(!pessoaForm.telefone)
+           return false;
+       
+       return true;
+   }
    self.salvar = function(pessoaForm){
+       self.validaCampos = self.validaForm(pessoaForm);
+       if(self.validaCampos){
        QueryService.salvarPessoas(pessoaForm).then(function(retorno){                               
       }).catch(function(retornoErro){
           
@@ -73,7 +92,9 @@
           
       });
   
-   }
+   }else{
+       alert("Campos obrigatório não informados");
+   }}
   }
 
 

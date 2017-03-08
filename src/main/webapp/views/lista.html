@@ -2,16 +2,17 @@
 
 <div class="container cf">
     <label>Pesquise por email:</label>
-     
-    <div class="form-group" >     
-            <div class="form-group col-md-8">
-              <input ng-model="pessoaForm.email" type="text" class="form-control" id="pessoaFormEmail">
-               
+     <form>
+            <div class="form-group" >     
+                    <div class="form-group col-md-8">
+                      <input ng-model="pessoaForm.email" type="text" class="form-control" id="pessoaFormEmail">
+
+                    </div>
+                     <div class="form-group col-md-4">
+                       <button ng-click="main.getPessoaPorEmail(pessoaForm.email)" type="submit" class="btn btn-primary active">Pesquisar</button>
+                     </div>    
             </div>
-             <div class="form-group col-md-4">
-               <button ng-click="main.getPessoaPorEmail(pessoaForm.email)" type="button" class="btn btn-primary active">Pesquisar</button>
-             </div>    
-    </div>
+         </form>
    
   <div class="form-group" align="left">
      <div class="col-md-12">
