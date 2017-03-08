@@ -111,6 +111,15 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>5.1</version>
+				<configuration>
+					<sonar.sources>src/main/java</sonar.sources>
+					<sonar.exclusions>**/*.js,**/*.xml</sonar.exclusions>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 

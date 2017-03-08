@@ -5,7 +5,7 @@
 			 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 			 xmlns="http://java.sun.com/xml/ns/persistence">
 								
-   <persistence-unit name="persistence_unit_db_estudo" transaction-type="RESOURCE_LOCAL">
+   <persistence-unit name="persistence_unit" transaction-type="RESOURCE_LOCAL">
       <provider>org.hibernate.ejb.HibernatePersistence</provider>
        <class>com.teste.entity.PessoaEntity</class> 
        <class>com.teste.entity.AmizadeEntity</class>

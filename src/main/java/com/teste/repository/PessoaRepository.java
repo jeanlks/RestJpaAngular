@@ -18,11 +18,8 @@ public class PessoaRepository {
 	
 	private final EntityManager entityManager;
 	
-	public PessoaRepository(){
-		
-		
-		this.entityManagerFactory = Persistence.createEntityManagerFactory("persistence_unit_db_estudo");
-		
+	public PessoaRepository(){	
+		this.entityManagerFactory = Persistence.createEntityManagerFactory("persistence_unit");
 		this.entityManager = this.entityManagerFactory.createEntityManager();
 	}
 	
@@ -56,7 +53,7 @@ public class PessoaRepository {
 	}
 	
 	/**
-	 * CONSULTA UMA PESSOA CADASTRA PELO CÓDIGO
+	 * Retorna pessoa pelo codigo
 	 * */
 	public PessoaEntity getPessoa(final Integer pessoaId){
 		
@@ -64,12 +61,10 @@ public class PessoaRepository {
 	}
 	
 	/**
-	 * EXCLUINDO UM REGISTRO PELO CÓDIGO
+	 * Exclui registro.
 	**/
-	public void excluir(final Integer pessoaId){
-		
-		PessoaEntity pessoa = this.getPessoa(pessoaId);
-		
+	public void excluir(final Integer pessoaId){		
+		PessoaEntity pessoa = this.getPessoa(pessoaId);	
 		this.entityManager.getTransaction().begin();
 		this.entityManager.remove(pessoa);
 		this.entityManager.getTransaction().commit();
@@ -96,19 +91,4 @@ public class PessoaRepository {
            return listaAmigos;
      }
 	 
-	
-	 public void insereAmigo(final int idAmigo1,PessoaEntity pessoaEntity){
-	        //Adiciona na tabela Pessoa
-	        this.entityManager.getTransaction().begin();
-	        this.entityManager.persist(pessoaEntity);
-	        this.entityManager.getTransaction().commit();
-	        //Cria objeto de amizade e posteriormente salva com a id gerada anteriormente
-	        AmizadeEntity amizade = new AmizadeEntity();
-	        amizade.setId1(idAmigo1);
-	        amizade.setId2(pessoaEntity.getPessoaId());
-	        
-	        this.entityManager.getTransaction().begin();
-            this.entityManager.persist(amizade);
-            this.entityManager.getTransaction().commit();       
-	 }
 }
