@@ -60,7 +60,7 @@
         self.pessoaForm = retorno;
         self.getAmigosPorIdPessoa(self.pessoaForm.pessoaId);
         }else{
-             alert("Pessoa não existe");
+             alert("Não existe pessoa com email informado");
         }
       }).catch(function(retornoErro){
        
@@ -69,7 +69,9 @@
       });
     }
     
-    
+   self.limpaCampos = function(){
+       self.pessoaForm = null;
+   } 
    self.validaForm = function(pessoaForm){
        if(!pessoaForm)
            return false;
@@ -85,17 +87,23 @@
    self.salvar = function(pessoaForm){
        self.validaCampos = self.validaForm(pessoaForm);
        if(self.validaCampos){
-       QueryService.salvarPessoas(pessoaForm).then(function(retorno){                               
+       QueryService.salvarPessoas(pessoaForm).then(function(retorno){
       }).catch(function(retornoErro){
           
       }).finally(function(){
           
       });
-  
+    alert("Registro salvo com sucesso");
+    self.limpaCampos();
    }else{
        alert("Campos obrigatório não informados");
    }}
+   
+   self.removerAmigo = function(amigo){
+      alert(amigo.pessoaId);
+   }
   }
-
+    
+  
 
 })();

@@ -43,26 +43,39 @@ public class ServiceController {
 	public String Cadastrar(Pessoa pessoa){
 		
 		PessoaEntity entity = new PessoaEntity();
-				
-		try {
+			if(validaPessoa(pessoa)){
+			    try {
 
-			entity.setNome(pessoa.getNome());
-			entity.setEmail(pessoa.getEmail());
-			entity.setEmpresa(pessoa.getEmpresa());
-			entity.setTelefone(pessoa.getTelefone());
-			
-			repository.Salvar(entity);
-			
-			return "Registro cadastrado com sucesso!";
-			
-		} catch (Exception e) {
-			
-			return "Erro ao cadastrar um registro " + e.getMessage();
-		}
+		            entity.setNome(pessoa.getNome());
+		            entity.setEmail(pessoa.getEmail());
+		            entity.setEmpresa(pessoa.getEmpresa());
+		            entity.setTelefone(pessoa.getTelefone());
+		            
+		            repository.Salvar(entity);
+		            
+		            return "Registro cadastrado com sucesso!";
+		            
+		        } catch (Exception e) {
+		            
+		            return "Erro ao cadastrar um registro " + e.getMessage();
+		        }
+			}else{
+			    return "Registro não inserido devido a falta de campos obrigatórios";
+			}
+		
 	
 	}
 	
-	/**
+	private boolean validaPessoa(Pessoa pessoa) {
+        if(pessoa.getNome()!=null 
+           && pessoa.getEmail()!=null
+           && pessoa.getTelefone()!=null){
+            return true;
+        }
+        return false;
+    }
+
+    /**
 	 * Altera Pessoa cadastrada.
 	 * **/
 	@PUT
