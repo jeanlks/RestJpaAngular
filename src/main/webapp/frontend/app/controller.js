@@ -125,9 +125,13 @@
     }}
    
    self.removerAmigo = function(amigo){
-      alert(amigo.pessoaId);
-   }
-   
+       QueryService.removerAmigo(self.pessoaForm.pessoaId,amigo.pessoaId).then(function(retorno){
+      }).catch(function(retornoErro){
+          
+      }).finally(function(){
+      self.getAmigosPorIdPessoa(self.pessoaForm.pessoaId);
+      });
+   }  
    
   }
     

@@ -127,13 +127,28 @@
           });
           return deferred.promise;
       }  
+      
+          function removerAmigo(id1,id2){
+          var deferred = $q.defer();
+          $http({ 
+              url:' //localhost:8080/WebServiceRest/rest/service/excluirAmizade/'+id1+'/'+id2,
+              method :'DELETE'
+        }).success(function(data){
+            deferred.resolve(data); 
+        }).error(function(err,status){
+              deferred.reject({data:err,status:status});
+          });
+          return deferred.promise;
+      }   
+    
     return {
       query,
       listarPessoas,
       salvarPessoas,
       getListaAmigosPorId,
       getPessoaPorEmail,
-      inserirAmigo  
+      inserirAmigo,
+      removerAmigo
     };
   }
 

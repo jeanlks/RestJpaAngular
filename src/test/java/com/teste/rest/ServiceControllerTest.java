@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import com.teste.entity.AmizadeEntity;
 import com.teste.entity.PessoaEntity;
 import com.teste.model.Pessoa;
+import com.teste.repository.AmizadeRepository;
 import com.teste.repository.PessoaRepository;
 
 import static org.mockito.Mockito.*;
@@ -25,19 +26,21 @@ import java.util.List;
 public class ServiceControllerTest {
     @Mock
     PessoaRepository repositorioPessoa;
-   
+    @Mock
+    AmizadeRepository repositorioAmizade;
     ServiceController servico = new ServiceController();
     @Before
     public void init(){
         initMocks(this);
         servico.pessoaBO.repositoryPessoa = repositorioPessoa;
+        servico.amizadeBO.repositoryAmizade = repositorioAmizade;
         carregaFuncoesGeraisMock();
     }
     
     public void carregaFuncoesGeraisMock(){
         when(repositorioPessoa.getPessoa(anyInt())).thenReturn(getPessoaEntityMock());
         when(repositorioPessoa.listarAmigosPorId(anyInt())).thenReturn(getListAmizadeMock());
-        when(repositorioPessoa.listarPessoas()).thenReturn(getListaPessoaEntityMock());       
+        when(repositorioPessoa.listarPessoas()).thenReturn(getListaPessoaEntityMock());  
     }
     
 
@@ -62,7 +65,11 @@ public class ServiceControllerTest {
     public void listaAmigosPorIdTest(){
        assertNotNull( servico.listarAmigosPorId(1));
     }
-    
+    @Test
+    public void getPessoaPorEmailTest(){
+        when(repositorioPessoa.getPessoaPorEmail(anyString())).thenReturn(getPessoaEntityMock());
+        assertNotNull(servico.getPessoaPorEmail("teste"));
+    }
     @Test
     public void cadastrarTest(){
         when(repositorioPessoa.getPessoaPorEmail(anyString())).thenReturn(null);
@@ -88,6 +95,11 @@ public class ServiceControllerTest {
     @Test
     public void excluirTest(){
         servico.excluir(1);
+    }
+    
+    @Test
+    public void insereAmigoTest(){
+        servico.InsereAmigo(1, getPessoaMock());
     }
     private List<PessoaEntity> getListaPessoaEntityMock() {
         List<PessoaEntity> listaPessoas = new ArrayList<>(); 

@@ -50,11 +50,12 @@ public class AmizadeRepository {
      */
    
     public void removerAmigo(final int id1,final int id2){
+        this.entityManager.getTransaction().begin();
         this.entityManager
-        .createQuery("DELETE FROM AmizadeEntity WHERE ID1 LIKE :ID1 AND  ID2 LIKE :ID2 ")
+        .createQuery("DELETE FROM AmizadeEntity WHERE ID1=:ID1 AND  ID2=:ID2 ")
         .setParameter("ID1", id1)
-        .setParameter("ID2", id2);   
-        this.entityManager.flush();
+        .setParameter("ID2", id2).executeUpdate();   
+        this.entityManager.getTransaction().commit();
     }
     
     /**
