@@ -16,6 +16,9 @@ public class Pessoa {
 	private String telefone;
 	private String empresa;
 	
+	/**
+	 *Construtor vazio para set de atributos. 
+	 */
 	public Pessoa(){
 		
 	}

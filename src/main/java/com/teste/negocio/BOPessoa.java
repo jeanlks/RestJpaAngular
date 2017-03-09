@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import com.teste.entity.AmizadeEntity;
 import com.teste.entity.PessoaEntity;
 import com.teste.model.Pessoa;
 import com.teste.repository.PessoaRepository;
@@ -16,7 +14,11 @@ import com.teste.repository.PessoaRepository;
  *
  */
 public class BOPessoa {
-    Logger LOG = Logger.getLogger(BOPessoa.class.getName());
+    Logger log = Logger.getLogger(BOPessoa.class.getName());
+    
+    /**
+     * Repositorio de pessoa para consultas ao banco.
+     */
     public PessoaRepository repositoryPessoa = new PessoaRepository();
   
     /**
@@ -41,7 +43,7 @@ public class BOPessoa {
                 return "Registro cadastrado com sucesso!";
 
             } catch (Exception e) {
-                LOG.log(Level.WARNING, e.getMessage(), e);
+                log.log(Level.WARNING, e.getMessage(), e);
                 return "Erro ao cadastrar um registro " + e.getMessage();
             }
         } else {
@@ -118,7 +120,7 @@ public class BOPessoa {
             repositoryPessoa.excluir(pessoaId);
             return "Registro excluido com sucesso!";
         } catch (Exception e) {
-            LOG.log(Level.WARNING, e.getMessage(), e);
+            log.log(Level.WARNING, e.getMessage(), e);
             return "Erro ao excluir o registro! " + e.getMessage();
         }
     }
@@ -157,7 +159,7 @@ public class BOPessoa {
             return "Registro alterado com sucesso!";
 
         } catch (Exception e) {
-            LOG.log(Level.WARNING, e.getMessage(), e);
+            log.log(Level.WARNING, e.getMessage(), e);
             return "Erro ao alterar o registro " + e.getMessage();
         }
     }

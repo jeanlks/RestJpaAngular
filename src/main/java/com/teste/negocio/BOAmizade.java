@@ -16,9 +16,18 @@ import com.teste.repository.AmizadeRepository;
  *
  */
 public class BOAmizade {
-    Logger LOG = Logger.getLogger(BOAmizade.class.getName());
+    Logger log = Logger.getLogger(BOAmizade.class.getName());
+    
+    /**
+     * Repositorio de amizade para consultas ao banco.
+     */
     public AmizadeRepository repositoryAmizade = new AmizadeRepository();
+   
+    /**
+     * AmizadeBO depende de pessoaBO para realizar algumas buscas.
+     */
     public BOPessoa pessoaBO = new BOPessoa();
+    
     /**
      * 
      * @param id do primeiro amigo.
@@ -52,7 +61,7 @@ public class BOAmizade {
             return "Registro cadastrado com sucesso!";
 
         } catch (Exception e) {
-            LOG.log(Level.WARNING, e.getMessage(), e);
+            log.log(Level.WARNING, e.getMessage(), e);
             return "Erro ao cadastrar um registro " + e.getMessage();
         }
     }
@@ -68,7 +77,7 @@ public class BOAmizade {
             repositoryAmizade.removerAmigo(id1, id2);
             return "Registro excluido com sucesso!";
         } catch (Exception e) {
-            LOG.log(Level.WARNING, e.getMessage(), e);
+            log.log(Level.WARNING, e.getMessage(), e);
             return "Erro ao excluir o registro! " + e.getMessage();
         }
 
