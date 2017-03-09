@@ -62,7 +62,7 @@ public class AmizadeRepository {
      * @param idAmigo1 id do amigo1 para inserção.
      * @param pessoaEntity amigo e seus dados para inserção.
      */
-    public void insereAmigo(final int idAmigo1,PessoaEntity pessoaEntity){
+    public void inserePessoaEAdicionaComoAmigo(final int idAmigo1,PessoaEntity pessoaEntity){
         //Adiciona na tabela Pessoa
         this.entityManager.getTransaction().begin();
         this.entityManager.persist(pessoaEntity);
@@ -72,8 +72,6 @@ public class AmizadeRepository {
         amizade.setId1(idAmigo1);
         amizade.setId2(pessoaEntity.getPessoaId());
       
-        this.entityManager.getTransaction().begin();
-        this.entityManager.persist(amizade);
-        this.entityManager.getTransaction().commit();       
+        salvar(amizade);       
  }
 }

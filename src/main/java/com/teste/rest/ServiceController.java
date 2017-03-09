@@ -206,12 +206,21 @@ public class ServiceController {
     public String InsereAmigo(@PathParam("id") int id, Pessoa pessoa) {
         PessoaEntity entity = new PessoaEntity();
         try {
-            entity.setNome(pessoa.getNome());
-            entity.setEmail(pessoa.getEmail());
-            entity.setEmpresa(pessoa.getEmpresa());
-            entity.setTelefone(pessoa.getTelefone());
-
-            repositoryAmizade.insereAmigo(id, entity);
+            Pessoa pessoaRetorno = getPessoaPorEmail(pessoa.getEmail());
+            if(pessoaRetorno!=null){
+                AmizadeEntity amizade = new AmizadeEntity();
+                amizade.setId1(id);
+                amizade.setId2(pessoaRetorno.getPessoaId());
+                repositoryAmizade.salvar(amizade);
+            }
+            else{
+                entity.setNome(pessoa.getNome());
+                entity.setEmail(pessoa.getEmail());
+                entity.setEmpresa(pessoa.getEmpresa());
+                entity.setTelefone(pessoa.getTelefone());
+                repositoryAmizade.inserePessoaEAdicionaComoAmigo(id, entity);
+            }
+            
 
             return "Registro cadastrado com sucesso!";
 

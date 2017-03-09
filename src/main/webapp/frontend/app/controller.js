@@ -76,15 +76,23 @@
        self.amigoForm = {};
    } 
    self.validaForm = function(pessoaForm){
-       if(!self.pessoaForm)
+       if(!pessoaForm){
+           alert("Campos obrigatório não informados");
            return false;
-       if(!self.pessoaForm.nome)
+        }
+       if(!pessoaForm.nome){
+             alert("Campo Nome não informado");
            return false;
-       if(!self.pessoaForm.email)
+        }
+       if(!pessoaForm.email || !pessoaForm.email.includes("@")){
+           alert("Campo Email não informado ou não é um email valido");
            return false;
-       if(!self.pessoaForm.telefone)
+       }
+           
+       if(!pessoaForm.telefone){
+           alert("Campo Telefone não informado");
            return false;
-       
+       }
        return true;
    }
    self.salvar = function(pessoaForm){
@@ -98,9 +106,7 @@
       });
        
    
-   // self.limpaCamposPessoa();
-   }else{
-       alert("Campos obrigatório não informados");
+    self.limpaCamposPessoa();
    }}
    
       

@@ -1,5 +1,7 @@
-<div class="form-group" align="center">
-<label>Pesquise por email ou adicione um novo:</label>
+
+<div class="container">
+<div class="form-group" align="left">
+    <div class="col-md-12"><label align="center">Pesquise por email ou adicione uma nova pessoa abaixo:</label></div>
      <form>     
         <div class="form-group col-md-8">
           <input ng-model="pessoaFormPesquisa.email" type="text" class="form-control" id="pessoaFormEmail">
@@ -9,9 +11,10 @@
          </div>       
     </form>
 </div>
-<div class="form-group" align="center">
-          <h3>Inserir Pessoa</h3>
+<div class="form-group" align="left">
+          
     <form>
+        <div class="col-md-12">   <h2 align="left">Pessoa</h2></div>
     <div class="col-md-6" ng-class="{'has-error':main.validaCampos}">
       <label >Nome:</label>
       <input ng-model="main.pessoaForm.nome" type="text" class="form-control" id="nome" required>
@@ -40,8 +43,8 @@
         
         
 </div>
-<div class="form-group" align="center">
-    <h2>Atualização e inserção de contatos</h2>
+<div class="form-group" align="left">
+    <div class="col-md-12"> <h2 align="left">Inserir Amigo</h2></div>
     <form>
     <div class="col-md-6">
       <label >Nome:</label>
@@ -96,4 +99,5 @@
         </table>
         </div>
     </div>
+</div>
 </div>
