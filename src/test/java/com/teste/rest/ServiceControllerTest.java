@@ -40,7 +40,7 @@ public class ServiceControllerTest {
     
     public void carregaFuncoesGeraisMock(){
         when(repositorioPessoa.getPessoa(anyInt())).thenReturn(getPessoaEntityMock());
-        when(repositorioPessoa.listarAmigosPorId(anyInt())).thenReturn(getListAmizadeMock());
+        when(repositorioAmizade.listarAmigosPorId(anyInt())).thenReturn(getListAmizadeMock());
         when(repositorioPessoa.listarPessoas()).thenReturn(getListaPessoaEntityMock());  
     }
     

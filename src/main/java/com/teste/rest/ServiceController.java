@@ -101,7 +101,7 @@ public class ServiceController {
     @Produces("application/json; charset=UTF-8")
     @Path("/getAmigosPorIdPessoa/{id}")
     public List<Pessoa> listarAmigosPorId(@PathParam("id") int id) {
-        return pessoaBO.listarAmigosPorId(id);
+        return amizadeBO.listarAmigosPorId(id);
     }
 
     /**

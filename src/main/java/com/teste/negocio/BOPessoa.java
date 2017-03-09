@@ -92,22 +92,7 @@ public class BOPessoa {
         return null;
     }
     
-    /**
-     * 
-     * @param id para listar amigos.
-     * @return lista de amigos.
-     */
-    public List<Pessoa> listarAmigosPorId(int id){
-        List<Pessoa> amigos = new ArrayList<>();
-        List<AmizadeEntity> listaEntityAmizadeIds = repositoryPessoa.listarAmigosPorId(id);
-        for (AmizadeEntity entity : listaEntityAmizadeIds) {
-            PessoaEntity entidadePessoa = repositoryPessoa.getPessoa(entity.getId2());
-            amigos.add(new Pessoa(entidadePessoa.getPessoaId(), entidadePessoa.getNome(), entidadePessoa.getEmail(),
-                    entidadePessoa.getTelefone(), entidadePessoa.getEmpresa()));
-        }
-        return amigos;
-    }
-
+    
 
     /**
      * 

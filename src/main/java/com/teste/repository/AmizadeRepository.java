@@ -1,5 +1,7 @@
 package com.teste.repository;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -29,6 +31,7 @@ public class AmizadeRepository {
      * @param amizadeEntity entidade de amizade para salvar.
      */
     public void salvar(AmizadeEntity amizadeEntity) {
+       
         this.entityManager.getTransaction().begin();
         this.entityManager.persist(amizadeEntity);
         this.entityManager.getTransaction().commit();
@@ -73,6 +76,25 @@ public class AmizadeRepository {
         amizade.setId1(idAmigo1);
         amizade.setId2(pessoaEntity.getPessoaId());
       
-        salvar(amizade);       
+        salvar(amizade);   
+        
+        AmizadeEntity amizade2 = new AmizadeEntity();
+        amizade2.setId1(pessoaEntity.getPessoaId());
+        amizade2.setId2(idAmigo1);
+        salvar(amizade2);
  }
+    
+    /**
+     * 
+     * @param id id da pessoa
+     * @return retorna a lista dos amigos dessa pessoa.
+     */
+     @SuppressWarnings("unchecked")
+     public List<AmizadeEntity> listarAmigosPorId(int id){
+           return  this.entityManager
+                  .createQuery("SELECT a FROM AmizadeEntity a  WHERE ID1 LIKE :id" )
+                 .setParameter("id", id)  
+                 .getResultList();       
+     }
+    
 }

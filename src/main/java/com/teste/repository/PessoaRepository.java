@@ -100,17 +100,6 @@ public class PessoaRepository {
             return null;
         }
     }
-	/**
-	 * 
-	 * @param id id da pessoa
-	 * @return retorna a lista dos amigos dessa pessoa.
-	 */
-	 @SuppressWarnings("unchecked")
-     public List<AmizadeEntity> listarAmigosPorId(int id){
-           return  this.entityManager
-                  .createQuery("SELECT a FROM AmizadeEntity a  WHERE ID1 LIKE :id" )
-                 .setParameter("id", id)  
-                 .getResultList();       
-     }
+	
 	 
 }

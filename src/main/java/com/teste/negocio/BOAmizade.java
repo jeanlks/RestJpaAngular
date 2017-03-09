@@ -1,5 +1,7 @@
 package com.teste.negocio;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -32,6 +34,11 @@ public class BOAmizade {
                 amizade.setId1(id);
                 amizade.setId2(pessoaRetorno.getPessoaId());
                 repositoryAmizade.salvar(amizade);
+                
+                AmizadeEntity amizade2 = new AmizadeEntity();
+                amizade2.setId1(pessoaRetorno.getPessoaId());
+                amizade2.setId2(id);
+                repositoryAmizade.salvar(amizade2);
             }
             else{
                 entity.setNome(pessoa.getNome());
@@ -66,4 +73,22 @@ public class BOAmizade {
         }
 
     }
+    
+    /**
+     * 
+     * @param id para listar amigos.
+     * @return lista de amigos.
+     */
+    public List<Pessoa> listarAmigosPorId(int id){
+        List<Pessoa> amigos = new ArrayList<>();
+        List<AmizadeEntity> listaEntityAmizadeIds = repositoryAmizade.listarAmigosPorId(id);
+        for (AmizadeEntity entity : listaEntityAmizadeIds) {
+            Pessoa entidadePessoa = pessoaBO.getPessoa(entity.getId2());
+            amigos.add(new Pessoa(entidadePessoa.getPessoaId(), entidadePessoa.getNome(), entidadePessoa.getEmail(),
+                    entidadePessoa.getTelefone(), entidadePessoa.getEmpresa()));
+        }
+        return amigos;
+    }
+
+    
 }
