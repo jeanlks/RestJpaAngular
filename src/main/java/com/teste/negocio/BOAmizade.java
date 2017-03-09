@@ -16,7 +16,7 @@ import com.teste.repository.AmizadeRepository;
 public class BOAmizade {
     Logger LOG = Logger.getLogger(BOAmizade.class.getName());
     public AmizadeRepository repositoryAmizade = new AmizadeRepository();
-    BOPessoa pessoaBO = new BOPessoa();
+    public BOPessoa pessoaBO = new BOPessoa();
     /**
      * 
      * @param id do primeiro amigo.

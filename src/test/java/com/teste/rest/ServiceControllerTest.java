@@ -34,6 +34,7 @@ public class ServiceControllerTest {
         initMocks(this);
         servico.pessoaBO.repositoryPessoa = repositorioPessoa;
         servico.amizadeBO.repositoryAmizade = repositorioAmizade;
+        
         carregaFuncoesGeraisMock();
     }
     
@@ -81,7 +82,10 @@ public class ServiceControllerTest {
     public void cadastrarCamposNulosTest(){
         assertNotNull(servico.cadastrar(new Pessoa()));
     }
-    
+    @Test
+    public void excluirAmizade(){
+        assertNotNull(servico.excluirAmizade(1, 1));
+    }
     @Test
     public void alterarTest(){
         assertNotNull(servico.alterar(getPessoaMock()));
@@ -99,8 +103,9 @@ public class ServiceControllerTest {
     
     @Test
     public void insereAmigoTest(){
-        servico.InsereAmigo(1, getPessoaMock());
+        assertNotNull(servico.InsereAmigo(1, getPessoaMock()));
     }
+    
     private List<PessoaEntity> getListaPessoaEntityMock() {
         List<PessoaEntity> listaPessoas = new ArrayList<>(); 
         listaPessoas.add(getPessoaEntityMock());
