@@ -22,6 +22,14 @@ public class Pessoa {
 	
 	
 
+	/**
+	 * 
+	 * @param pessoaId id da pessoa.
+	 * @param nome nome da pessoa.
+	 * @param email email da pessoa.
+	 * @param telefone telefone da pessoa.
+	 * @param empresa empresa da pessoa.
+	 */
 	public Pessoa(int pessoaId, String nome, String email, String telefone, String empresa) {
         super();
         this.pessoaId = pessoaId;

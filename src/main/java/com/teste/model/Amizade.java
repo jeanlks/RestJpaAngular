@@ -6,9 +6,9 @@ package com.teste.model;
  *
  */
 public class Amizade {
-    public int idAmizade; // id Amizade
-    public int id1; // id Pessoa 1
-    public int id2; // id Pessoa 2
+    private int idAmizade; // id Amizade
+    private int id1; // id Pessoa 1
+    private int id2; // id Pessoa 2
     public int getIdAmizade() {
         return idAmizade;
     }

@@ -18,7 +18,6 @@ import com.teste.repository.AmizadeRepository;
 /**
  * Classe com os recursos
  * 
- * @Path - Caminho para a chamada do recurso
  */
 @Path("/service")
 public class ServiceController {
@@ -27,8 +26,7 @@ public class ServiceController {
     BOAmizade amizadeBO = new BOAmizade();
 
     /**
-     * @Consumes - determina formato dos dados consumidos.
-     * @Produces - determina formato dos dados retornados.
+     *
      * @param pessoa
      *            pessoa para cadastro
      * @return mensagem de erro ou sucesso. Cadastro de Pessoa
@@ -147,13 +145,7 @@ public class ServiceController {
     @Produces("application/json; charset=UTF-8")
     @Path("/excluirAmizade/{id1}/{id2}")
     public String excluirAmizade(@PathParam("id1") int id1, @PathParam("id2") int id2) {
-        try {
-            repositoryAmizade.removerAmigo(id1, id2);
-            return "Registro excluido com sucesso!";
-        } catch (Exception e) {
-            return "Erro ao excluir o registro! " + e.getMessage();
-        }
-
+       return amizadeBO.excluir(id1,id2);
     }
 
 }
