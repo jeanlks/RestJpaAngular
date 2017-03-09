@@ -19,7 +19,6 @@
     // 'controller as' syntax
     var self = this;
     
-
     ////////////  function definitions
 
     /**
@@ -75,6 +74,46 @@
    self.limpaCamposAmigoForm = function(){
        self.amigoForm = {};
    } 
+   
+   self.validaFormAmigo = function(amigoForm){
+       if(!self.pessoaForm){
+           alert("Selecione uma pessoa para adicionar um amigo");
+           return false;
+        }
+       if(!self.pessoaForm.nome){
+             alert("Selecione uma pessoa para adicionar um amigo");
+           return false;
+        }
+       if(!self.pessoaForm.email || !self.pessoaForm.email.includes("@")){
+         alert("Selecione uma pessoa para adicionar um amigo");
+           return false;
+       }
+           
+       if(!self.pessoaForm.telefone){
+            alert("Selecione uma pessoa para adicionar um amigo");
+           return false;
+       }
+       if(!amigoForm){
+           alert("Campos obrigatório não informados");
+           return false;
+        }
+       if(!amigoForm.nome){
+             alert("Campo Nome não informado");
+           return false;
+        }
+       if(!amigoForm.email || !amigoForm.email.includes("@")){
+           alert("Campo Email não informado ou não é um email valido");
+           return false;
+       }
+           
+       if(!amigoForm.telefone){
+           alert("Campo Telefone não informado");
+           return false;
+       }
+       
+       return true;
+   }
+   
    self.validaForm = function(pessoaForm){
        if(!pessoaForm){
            alert("Campos obrigatório não informados");
@@ -111,7 +150,7 @@
    
       
    self.inserirAmigo = function(id,amigoForm){
-       self.validaCampos = self.validaForm(amigoForm);
+       self.validaCampos = self.validaFormAmigo(amigoForm);
        if(self.validaCampos){
        QueryService.inserirAmigo(id,amigoForm).then(function(retorno){
       }).catch(function(retornoErro){
@@ -120,8 +159,6 @@
         self.getAmigosPorIdPessoa(id);
       });
    // self.limpaCamposPessoa();
-    }else{
-       alert("Campos obrigatório não informados");
     }}
    
    self.removerAmigo = function(amigo){
