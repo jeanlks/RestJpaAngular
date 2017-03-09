@@ -59,6 +59,7 @@
   },
   "homepage": "https://github.com/jbutko/AngularJS-Boilerplate",
   "dependencies": {
+    "angucomplete-alt": "^3.0.0",
     "toastr": "^2.1.2"
   }
 }

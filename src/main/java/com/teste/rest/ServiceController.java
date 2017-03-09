@@ -1,8 +1,6 @@
 package com.teste.rest;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -11,12 +9,11 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-
-import com.teste.entity.AmizadeEntity;
-import com.teste.entity.PessoaEntity;
 import com.teste.model.Pessoa;
+import com.teste.negocio.BOAmizade;
+import com.teste.negocio.BOPessoa;
 import com.teste.repository.AmizadeRepository;
-import com.teste.repository.PessoaRepository;
+
 
 /**
  * Classe com os recursos
@@ -25,9 +22,9 @@ import com.teste.repository.PessoaRepository;
  */
 @Path("/service")
 public class ServiceController {
-
-    PessoaRepository repositoryPessoa = new PessoaRepository();
     AmizadeRepository repositoryAmizade = new AmizadeRepository();
+    BOPessoa pessoaBO = new BOPessoa();
+    BOAmizade amizadeBO = new BOAmizade();
 
     /**
      * @Consumes - determina formato dos dados consumidos.
@@ -41,56 +38,9 @@ public class ServiceController {
     @Produces("application/json; charset=UTF-8")
     @Path("/cadastrar")
     public String cadastrar(Pessoa pessoa) {
-        PessoaEntity entity = new PessoaEntity();
-        if (validaPessoa(pessoa)) {
-
-            try {
-                entity.setNome(pessoa.getNome());
-                entity.setEmail(pessoa.getEmail());
-                entity.setEmpresa(pessoa.getEmpresa());
-                entity.setTelefone(pessoa.getTelefone());
-                if (verificaEmailCadastrado(pessoa.getEmail())) {
-                    return "Email já existente";
-                } else {
-                    repositoryPessoa.salvar(entity);
-                }
-                return "Registro cadastrado com sucesso!";
-
-            } catch (Exception e) {
-                return "Erro ao cadastrar um registro " + e.getMessage();
-            }
-        } else {
-            return "Registro não inserido devido a falta de campos obrigatórios";
-        }
-
+        return pessoaBO.cadastrar(pessoa);
     }
 
-    /**
-     * 
-     * @param email
-     *            email
-     * @return false ou true se o email ja foi cadastrado.
-     */
-    protected boolean verificaEmailCadastrado(String email) {
-        if (getPessoaPorEmail(email) != null) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * 
-     * @param pessoa
-     *            objeto pessoa.
-     * @return false ou true dependendo se a pessoa tem algum campo necessário
-     *         null.
-     */
-    protected boolean validaPessoa(Pessoa pessoa) {
-        if (pessoa.getNome() != null || pessoa.getEmail() != null || pessoa.getTelefone() != null) {
-            return true;
-        }
-        return false;
-    }
 
     /**
      * 
@@ -103,21 +53,7 @@ public class ServiceController {
     @Consumes("application/json; charset=UTF-8")
     @Path("/alterar")
     public String alterar(Pessoa pessoa) {
-        PessoaEntity entity = new PessoaEntity();
-        try {
-            entity.setPessoaId(pessoa.getPessoaId());
-            entity.setNome(pessoa.getNome());
-            entity.setEmail(pessoa.getEmail());
-            entity.setEmpresa(pessoa.getEmpresa());
-            entity.setTelefone(pessoa.getTelefone());
-
-            repositoryPessoa.alterar(entity);
-
-            return "Registro alterado com sucesso!";
-
-        } catch (Exception e) {
-            return "Erro ao alterar o registro " + e.getMessage();
-        }
+        return pessoaBO.alterar(pessoa);
     }
 
     /**
@@ -128,13 +64,7 @@ public class ServiceController {
     @Produces("application/json; charset=UTF-8")
     @Path("/todasPessoas")
     public List<Pessoa> listaPessoas() {
-        List<Pessoa> pessoas = new ArrayList<>();
-        List<PessoaEntity> listaEntityPessoas = repositoryPessoa.listarPessoas();
-        for (PessoaEntity entity : listaEntityPessoas) {
-            pessoas.add(new Pessoa(entity.getPessoaId(), entity.getNome(), entity.getEmail(), entity.getTelefone(),
-                    entity.getEmpresa()));
-        }
-        return pessoas;
+     return pessoaBO.listaPessoas();
     }
 
     /**
@@ -147,11 +77,7 @@ public class ServiceController {
     @Produces("application/json; charset=UTF-8")
     @Path("/getPessoa/{id}")
     public Pessoa getPessoa(@PathParam("id") Integer id) {
-        PessoaEntity entity = repositoryPessoa.getPessoa(id);
-        if (entity != null)
-            return new Pessoa(entity.getPessoaId(), entity.getNome(), entity.getEmail(), entity.getTelefone(),
-                    entity.getEmpresa());
-        return null;
+       return pessoaBO.getPessoa(id);
     }
 
     /**
@@ -164,11 +90,7 @@ public class ServiceController {
     @Produces("application/json; charset=UTF-8")
     @Path("/getPessoaPorEmail/{email}")
     public Pessoa getPessoaPorEmail(@PathParam("email") String email) {
-        PessoaEntity entity = repositoryPessoa.getPessoaPorEmail(email);
-        if (entity != null)
-            return new Pessoa(entity.getPessoaId(), entity.getNome(), entity.getEmail(), entity.getTelefone(),
-                    entity.getEmpresa());
-        return null;
+        return pessoaBO.getPessoaPorEmail(email);
     }
 
     /**
@@ -181,14 +103,7 @@ public class ServiceController {
     @Produces("application/json; charset=UTF-8")
     @Path("/getAmigosPorIdPessoa/{id}")
     public List<Pessoa> listarAmigosPorId(@PathParam("id") int id) {
-        List<Pessoa> amigos = new ArrayList<>();
-        List<AmizadeEntity> listaEntityAmizadeIds = repositoryPessoa.listarAmigosPorId(id);
-        for (AmizadeEntity entity : listaEntityAmizadeIds) {
-            PessoaEntity entidadePessoa = repositoryPessoa.getPessoa(entity.getId2());
-            amigos.add(new Pessoa(entidadePessoa.getPessoaId(), entidadePessoa.getNome(), entidadePessoa.getEmail(),
-                    entidadePessoa.getTelefone(), entidadePessoa.getEmpresa()));
-        }
-        return amigos;
+        return pessoaBO.listarAmigosPorId(id);
     }
 
     /**
@@ -203,32 +118,8 @@ public class ServiceController {
     @Consumes("application/json; charset=UTF-8")
     @Produces("application/json; charset=UTF-8")
     @Path("/insereAmigo/{id}")
-    public String InsereAmigo(@PathParam("id") int id, Pessoa pessoa) {
-        PessoaEntity entity = new PessoaEntity();
-        try {
-            Pessoa pessoaRetorno = getPessoaPorEmail(pessoa.getEmail());
-            if(pessoaRetorno!=null){
-                AmizadeEntity amizade = new AmizadeEntity();
-                amizade.setId1(id);
-                amizade.setId2(pessoaRetorno.getPessoaId());
-                repositoryAmizade.salvar(amizade);
-            }
-            else{
-                entity.setNome(pessoa.getNome());
-                entity.setEmail(pessoa.getEmail());
-                entity.setEmpresa(pessoa.getEmpresa());
-                entity.setTelefone(pessoa.getTelefone());
-                repositoryAmizade.inserePessoaEAdicionaComoAmigo(id, entity);
-            }
-            
-
-            return "Registro cadastrado com sucesso!";
-
-        } catch (Exception e) {
-
-            return "Erro ao cadastrar um registro " + e.getMessage();
-        }
-
+    public String InsereAmigo(@PathParam("id") int id, Pessoa pessoa) {    
+        return amizadeBO.insereAmigo(id, pessoa);
     }
 
     /**
@@ -241,12 +132,7 @@ public class ServiceController {
     @Produces("application/json; charset=UTF-8")
     @Path("/excluir/{codigo}")
     public String excluir(@PathParam("pessoaId") Integer pessoaId) {
-        try {
-            repositoryPessoa.excluir(pessoaId);
-            return "Registro excluido com sucesso!";
-        } catch (Exception e) {
-            return "Erro ao excluir o registro! " + e.getMessage();
-        }
+       return pessoaBO.excluir(pessoaId);
     }
 
     /**

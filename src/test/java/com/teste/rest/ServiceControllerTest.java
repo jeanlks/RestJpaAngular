@@ -30,7 +30,7 @@ public class ServiceControllerTest {
     @Before
     public void init(){
         initMocks(this);
-        servico.repositoryPessoa = repositorioPessoa;
+        servico.pessoaBO.repositoryPessoa = repositorioPessoa;
         carregaFuncoesGeraisMock();
     }
     
@@ -44,13 +44,14 @@ public class ServiceControllerTest {
     @Test
     public void verificaEmailJaCadastradoTest() {
         when(repositorioPessoa.getPessoaPorEmail(anyString())).thenReturn(getPessoaEntityMock());
-        assertTrue(servico.verificaEmailCadastrado("teste"));
+        assertTrue(servico.pessoaBO.verificaEmailCadastrado("teste"));
+        
     }
     
     @Test
     public void verificaEmailNaoCadastradoTest(){
         when(repositorioPessoa.getPessoaPorEmail(anyString())).thenReturn(null);
-        assertFalse(servico.verificaEmailCadastrado("teste"));  
+        assertFalse(servico.pessoaBO.verificaEmailCadastrado("teste"));  
     }
     @Test
     public void getPessoaTest(){
