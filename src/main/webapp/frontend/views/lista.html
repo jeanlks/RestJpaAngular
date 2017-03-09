@@ -1,0 +1,70 @@
+
+
+<div class="container cf">
+    <label>Pesquise por email:</label>
+     <form>
+            <div class="form-group" >     
+                    <div class="form-group col-md-8">
+                      <input ng-model="pessoaForm.email" type="text" class="form-control" id="pessoaFormEmail">
+
+                    </div>
+                     <div class="form-group col-md-4">
+                       <button ng-click="main.getPessoaPorEmail(pessoaForm.email)" type="submit" class="btn btn-primary active">Pesquisar</button>
+                     </div>    
+            </div>
+    </form>
+   
+  <div class="form-group" align="left">
+     <div class="col-md-12">
+      <h3 align="left">Pessoa</h3>
+      </div>
+    <div class="col-md-6">
+      <label for="usr">Nome:</label>
+      <input ng-model="main.pessoaForm.nome" type="text" class="form-control" id="nome" disabled>
+
+    </div>
+
+  <div class="col-md-6">
+      <label for="usr">Email:</label>
+      <input  ng-model="main.pessoaForm.email" type="text" class="form-control" id="email" disabled>
+    </div>
+
+    <div class="col-md-6">
+      <label for="usr">Telefone:</label>
+      <input  ng-model="main.pessoaForm.telefone" type="text" class="form-control" id="telefone" disable>
+    </div>
+
+   <div class="col-md-6">
+      <label for="usr">Empresa:</label>
+      <input ng-model="main.pessoaForm.empresa" type="text" class="form-control" id="empresa" disabled>
+    </div>
+</div>  
+    
+<div class="form-group" align="left">  
+  <div class="col-md-12"><h2>Lista de contatos</h2></div>
+    <div class = "table table-striped" >
+      <div class="col-md-12">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th width="20%">nome</th>
+                    <th width="20%">email</th>
+                    <th width="20%">telefone</th>
+                    <th width="20%">empresa</th>
+                    <th width="20%">Apagar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr  ng-repeat="amigo in main.listaAmigos">
+                    <td width="20%">{{amigo.nome}} </td>
+                    <td width="20%">{{amigo.email}}</td>
+                    <td width="20%">{{amigo.telefone}}</td>
+                    <td width="20%">{{amigo.empresa}}</td>
+                   <td style="width:20%"><a> <button class="btn btn-primary btn-block" type="button" ng-click="main.removerAmigo(amigo)">Apagar</button></a></td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
+    </div>
+</div>

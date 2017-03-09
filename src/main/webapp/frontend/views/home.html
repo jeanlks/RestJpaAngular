@@ -1,0 +1,103 @@
+
+<div class="container">
+<div class="form-group" align="left">
+    <div class="col-md-12"><label align="center">Pesquise por email ou adicione uma nova pessoa abaixo:</label></div>
+     <form>     
+        <div class="form-group col-md-8">
+          <input ng-model="pessoaFormPesquisa.email" type="text" class="form-control" id="pessoaFormEmail"/>
+        </div>
+         <div class="form-group col-md-4">
+           <button ng-click="main.getPessoaPorEmail(pessoaFormPesquisa.email)" type="submit" class="btn btn-primary active">Pesquisar</button>
+         </div>       
+    </form>
+</div>
+<div class="form-group" align="left">
+          
+    <form>
+        <div class="col-md-12">   <h2 align="left">Pessoa</h2></div>
+    <div class="col-md-6" ng-class="{'has-error':main.validaCampos}">
+      <label >Nome:</label>
+      <input ng-model="main.pessoaForm.nome" type="text" class="form-control" id="nome" required>
+
+    </div>
+
+    <div class="col-md-6">
+      <label >Email:</label>
+      <input  ng-model="main.pessoaForm.email" type="text" class="form-control" id="email" required>
+    </div>
+
+    <div class="col-md-6">
+      <label >Telefone:</label>
+      <input  ng-model="main.pessoaForm.telefone" type="text" class="form-control" id="telefone" required>
+    </div>
+
+    <div class="col-md-6">
+      <label >Empresa:</label>
+      <input ng-model="main.pessoaForm.empresa" type="text" class="form-control" id="empresa">
+    </div>
+    
+     <div class="col-md-12">
+            <a><button ng-click="main.limpaCamposPessoa()" type="submit" class="btn btn-primary active">Limpar</button></a>
+            <button ng-click="main.salvar(main.pessoaForm)" type="submit" class="btn btn-primary active">Salvar Pessoa</button>
+        </div>
+    </form>
+        
+        
+</div>
+<div class="form-group" align="left">
+    <div class="col-md-12"> <h2 align="left">Inserir Amigo</h2></div>
+    <form>
+    <div class="col-md-6">
+      <label >Nome:</label>
+      <input ng-model="main.amigoForm.nome" type="text" class="form-control" id="nome" required>
+
+    </div>
+
+    <div class="col-md-6">
+      <label >Email:</label>
+      <input  ng-model="main.amigoForm.email" type="text" class="form-control" id="email" required>
+    </div>
+
+    <div class="col-md-6">
+      <label >Telefone:</label>
+      <input  ng-model="main.amigoForm.telefone" type="tel"  class="form-control" id="telefone" required>
+    </div>
+
+    <div class="col-md-6">
+      <label >Empresa:</label>
+      <input ng-model="main.amigoForm.empresa" type="text" class="form-control" id="empresa">
+    </div>
+    
+     <div class="col-md-12">
+             <a><button ng-click="main.limpaCamposAmigoForm()" type="submit" class="btn btn-primary active">Limpar</button></a>
+            <button ng-click="main.inserirAmigo(main.pessoaForm.pessoaId,main.amigoForm)" type="submit" class="btn btn-primary active">Salvar Amigo</button>
+        </div>
+    </form>
+        
+</div>
+<div class="form-group" align="left">  
+  <div class="col-md-12"><h2>Lista de contatos</h2></div>
+    <div class = "table table-striped" >
+      <div class="col-md-12">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th width="20%">nome</th>
+                    <th width="20%">email</th>
+                    <th width="20%">telefone</th>
+                    <th width="20%">empresa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr  ng-repeat="amigo in main.listaAmigos">
+                    <td width="20%">{{amigo.nome}} </td>
+                    <td width="20%">{{amigo.email}}</td>
+                    <td width="20%">{{amigo.telefone}}</td>
+                    <td width="20%">{{amigo.empresa}}</td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
+</div>
