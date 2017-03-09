@@ -34,7 +34,7 @@ public class BOPessoa {
                 entity.setEmpresa(pessoa.getEmpresa());
                 entity.setTelefone(pessoa.getTelefone());
                 if (verificaEmailCadastrado(pessoa.getEmail())) {
-                    return "Email já existente";
+                    alterar(pessoa);
                 } else {
                     repositoryPessoa.salvar(entity);
                 }
