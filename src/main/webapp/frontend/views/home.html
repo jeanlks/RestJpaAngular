@@ -15,30 +15,34 @@
           
     <form>
         <div class="col-md-12">   <h2 align="left">Pessoa</h2></div>
-    <div class="col-md-6" ng-class="{'has-error':main.validaCampos}">
+    <div class="col-md-12">
+    <label>Clique para liberar edição: <input type="checkbox" ng-model="checkEditar" > </label>
+    </div>
+    <div class="col-md-6">
       <label >Nome:</label>
-      <input ng-model="main.pessoaForm.nome" type="text" class="form-control" id="nome" required>
+      <input ng-disabled="!checkEditar" ng-model="main.pessoaForm.nome" type="text" class="form-control" id="nome" required>
 
     </div>
 
     <div class="col-md-6">
       <label >Email:</label>
-      <input  ng-model="main.pessoaForm.email" type="text" class="form-control" id="email" required>
+      <input ng-disabled="!checkEditar" ng-model="main.pessoaForm.email" type="text" class="form-control" id="email" required>
     </div>
 
     <div class="col-md-6">
       <label >Telefone:</label>
-      <input  ng-model="main.pessoaForm.telefone" type="text" class="form-control" id="telefone" required>
+      <input ng-disabled="!checkEditar" ng-model="main.pessoaForm.telefone" type="text" class="form-control" id="telefone" required>
     </div>
 
     <div class="col-md-6">
       <label >Empresa:</label>
-      <input ng-model="main.pessoaForm.empresa" type="text" class="form-control" id="empresa">
+      <input ng-disabled="!checkEditar" ng-model="main.pessoaForm.empresa" type="text" class="form-control" id="empresa">
     </div>
     
      <div class="col-md-12">
-            <a><button ng-click="main.limpaCamposPessoa()" type="submit" class="btn btn-primary active">Limpar</button></a>
-            <button ng-click="main.salvar(main.pessoaForm)" type="submit" class="btn btn-primary active">Salvar Pessoa</button>
+            
+         <a><button ng-click="main.limpaCamposPessoa()" type="button" class="btn btn-primary active">Limpar</button></a>
+         <button ng-click="main.salvar(main.pessoaForm)" type="submit" class="btn btn-primary active">Salvar Pessoa</button>
         </div>
     </form>
         
@@ -69,8 +73,9 @@
     </div>
     
      <div class="col-md-12">
-             <a><button ng-click="main.limpaCamposAmigoForm()" type="submit" class="btn btn-primary active">Limpar</button></a>
+             <a><button ng-click="main.limpaCamposAmigoForm()" type="button" class="btn btn-primary active">Limpar</button></a>
             <button ng-click="main.inserirAmigo(main.pessoaForm.pessoaId,main.amigoForm)" type="submit" class="btn btn-primary active">Salvar Amigo</button>
+             
         </div>
     </form>
         

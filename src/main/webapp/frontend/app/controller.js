@@ -67,6 +67,9 @@
       });
     }
     
+    self.atualizaFormPessoa = function(email){
+        self.getPessoaPorEmail(email);
+    }
    self.limpaCamposPessoa = function(){
        self.pessoaForm = {};
    } 
@@ -141,11 +144,12 @@
       }).catch(function(retornoErro){
           
       }).finally(function(){
-          
+          alert("Registro salvo ou atualizado");
+          self.atualizaFormPessoa(pessoaForm.email);
       });
        
    
-    self.limpaCamposPessoa();
+   
    }}
    
       
