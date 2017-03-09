@@ -47,12 +47,11 @@
     }
     self.getAmigosPorIdPessoa = function(id){
         QueryService.getListaAmigosPorId(id).then(function(retorno){
-        self.listaAmigos = retorno;                             
+        self.listaAmigos = retorno;  
       }).catch(function(retornoErro){
-        listaAmigos = {};
       }).finally(function(){
-          
-      });
+            self.limpaCamposAmigoForm();
+        });
     }
     self.getPessoaPorEmail = function(email){
         QueryService.getPessoaPorEmail(email).then(function(retorno){
@@ -69,8 +68,12 @@
       });
     }
     
-   self.limpaCampos = function(){
+   self.limpaCamposPessoa = function(){
        self.pessoaForm = {};
+   } 
+   
+   self.limpaCamposAmigoForm = function(){
+       self.amigoForm = {};
    } 
    self.validaForm = function(pessoaForm){
        if(!self.pessoaForm)
@@ -95,18 +98,31 @@
       });
        
    
-   // self.limpaCampos();
+   // self.limpaCamposPessoa();
    }else{
        alert("Campos obrigatório não informados");
    }}
+   
+      
+   self.inserirAmigo = function(id,amigoForm){
+       self.validaCampos = self.validaForm(amigoForm);
+       if(self.validaCampos){
+       QueryService.inserirAmigo(id,amigoForm).then(function(retorno){
+      }).catch(function(retornoErro){
+          
+      }).finally(function(){
+        self.getAmigosPorIdPessoa(id);
+      });
+   // self.limpaCamposPessoa();
+    }else{
+       alert("Campos obrigatório não informados");
+    }}
    
    self.removerAmigo = function(amigo){
       alert(amigo.pessoaId);
    }
    
-   self.inserirAmigo = function(pessoaForm,amigoForm){
-      alert("pessoaFormId: "+pessoaForm.pessoaId );   
-   }
+   
   }
     
   

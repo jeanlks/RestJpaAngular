@@ -93,7 +93,7 @@ public class PessoaRepository {
 	    List<PessoaEntity> listaPessoas =  this.entityManager.createQuery("SELECT p FROM PessoaEntity p  WHERE email LIKE :email")
                 .setParameter("email", email)
                 .getResultList();
-        if(listaPessoas.isEmpty()){
+        if(!listaPessoas.isEmpty()){
             return listaPessoas.get(0);
         }
         else{

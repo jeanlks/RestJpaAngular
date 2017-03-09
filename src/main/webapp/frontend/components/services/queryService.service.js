@@ -46,18 +46,9 @@
 
 
   function QueryService($http, $q, CONSTANTS) {
-
-
-
-
-
     //////////////// definition
-
-
     function query(method, url, params, data) {
-
       var deferred = $q.defer();
-
       $http({
         method: method,
         url: CONSTANTS.API_URL + url,
@@ -71,7 +62,6 @@
       }, function(error) {
         deferred.reject(error);
       });
-
       return deferred.promise;
     }
       
@@ -123,14 +113,27 @@
           });
           return deferred.promise;
       }   
-
+    
+    function inserirAmigo(id,pessoa){
+          var deferred = $q.defer();
+          $http({ 
+              url:' //localhost:8080/WebServiceRest/rest/service/insereAmigo/'+id,
+              method :'POST',
+              data: pessoa
+        }).success(function(data){
+            deferred.resolve(data); 
+        }).error(function(err,status){
+              deferred.reject({data:err,status:status});
+          });
+          return deferred.promise;
+      }  
     return {
       query,
       listarPessoas,
       salvarPessoas,
       getListaAmigosPorId,
       getPessoaPorEmail,
-      
+      inserirAmigo  
     };
   }
 
